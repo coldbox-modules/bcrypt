@@ -11,7 +11,8 @@
 	}
 	
 	public string function hashPassword( required string password, workFactor=variables.workFactor ){
-		var salt = getBCrypt().genSalt( arguments.workFactor );
+		// TODO, add Java Cast Here
+		var salt = getBCrypt().genSalt( javaCast( "int", arguments.workFactor ) );
 		return getBCrypt().hashpw( password, salt );
 	}
 	
