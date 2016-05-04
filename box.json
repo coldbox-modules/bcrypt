@@ -21,8 +21,8 @@
         "cbjavaloader":"1.1.0"
     },
     "ignore":[
-      "BCryptTest.cfc",
-      "java",
-      "tests"
+        "BCryptTest.cfc",
+        "java",
+        "tests"
     ]
 }

@@ -6,7 +6,8 @@ component {
 	this.webURL 			= "https://github.com/sfeldkamp/coldbox-plugin-BCrypt";
 	this.description 		= "A ColdBox library for BCrypt for creating cryptographically strong (and slow) password hashes.";
 	this.version			= "2.1.0";
-	this.modelNamespace		= "BCrypt";
+	this.modelNamespace		= "bcrypt";
+	this.cfmapping			= "bcrypt";
 	// Module Dependencies That Must Be Loaded First, use internal names or aliases
 	this.dependencies		= [ "cbjavaloader" ];
 
@@ -21,7 +22,6 @@ component {
 	* Fired when the module is registered and activated.
 	*/
 	function onLoad(){
-		var settings = controller.getConfigSettings();
 		// parse parent settings
 		parseParentSettings();
 		// Class load antisamy
