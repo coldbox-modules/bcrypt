@@ -35,15 +35,15 @@ component {
 	private function parseParentSettings(){
 		var oConfig 		= controller.getSetting( "ColdBoxConfig" );
 		var configStruct 	= controller.getConfigSettings();
-		var bcryptDSL 		= oConfig.getPropertyMixin( "bcrypt", "variables", structnew() );
+		var bcryptDSL 		= oConfig.getPropertyMixin( "bCrypt", "variables", structnew() );
 
 		//defaults
-		configStruct.bcryptDSL = {
+		configStruct.bCrypt = {
 			workFactor = 12
 		};
 
 		// incorporate settings
-		structAppend( configStruct.bcryptDSL, bcryptDSL, true );
+		structAppend( configStruct.bCrypt, bcryptDSL, true );
 	}
 
 }
