@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/coldbox-modules/cbox-bcrypt.svg?branch=master)](https://travis-ci.org/coldbox-modules/cbox-bcrypt)
+
 # BCrypt Module
 
 A ColdBox module for BCrypt. You can ready more about BCrypt here:
