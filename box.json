@@ -1,6 +1,6 @@
 {
     "name":"CryptBox",
-    "version":"2.0.0.0000",
+    "version":"2.1.0+0000",
     "author":"Seth Feldkamp",
     "homepage":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt",
     "documentation":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt",
@@ -14,12 +14,15 @@
     "type":"modules",
     "contributors":[
     	"Seth Feldkamp",
-        "Brad Wood"
+        "Brad Wood",
+        "Luis Majano"
     ],
     "dependencies":{
-        "cbjavaloader":"1.0.0"
+        "cbjavaloader":"1.1.0"
     },
     "ignore":[
-      'BCryptTest.cfc'  
+        "BCryptTest.cfc",
+        "java",
+        "tests"
     ]
 }

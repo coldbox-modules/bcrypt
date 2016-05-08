@@ -1,0 +1,11 @@
+{
+    "web":{
+        "rewrites":{
+            "enable":true
+        },
+        "http":{
+            "port":"49615"
+        }
+    },
+    "openbrowser":"false"
+}
