@@ -19,7 +19,7 @@ A compiled version (0.3) of jBCrypt is included in the `models/lib` directory.  
 3. Package `BCrypt.class` into a jar file named `BCrypt.jar`.
 
 ## Installing BCrypt Module
-Download the BCrypt module and place it in your `modules` folder.  Even easier, is isntall via CommandBox and this will also isntall the required JavaLoader module as well
+Download the BCrypt module and place it in your `modules` folder.  Even easier, is install via CommandBox and this will also install the required JavaLoader module as well
 
 ```bash
 box install bcrypt
