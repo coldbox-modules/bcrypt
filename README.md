@@ -2,7 +2,7 @@
 
 # BCrypt Module
 
-A ColdBox module for BCrypt. You can ready more about BCrypt here:
+A ColdBox module for BCrypt. You can read more about BCrypt here:
 
 * http://en.wikipedia.org/wiki/Bcrypt
 * http://codahale.com/how-to-safely-store-a-password/
