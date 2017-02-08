@@ -2,6 +2,7 @@
     "name":"CryptBox",
     "version":"2.1.0+0000",
     "author":"Seth Feldkamp",
+    "location":"https://github.com/sfeldkamp/cbox-bcrypt",
     "homepage":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt",
     "documentation":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt",
     "repository":{
