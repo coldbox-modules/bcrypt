@@ -1,3 +1,14 @@
+env:
+  global:
+    - MODULE_ID=BCrypt
+    - MODULE_VERSION=2.2.0
+  matrix:
+    - ENGINE=lucee@4.5
+    - ENGINE=lucee@5
+    - ENGINE=adobe@10
+    - ENGINE=adobe@11
+    - ENGINE=adobe@2016
+
 language: java
 sudo: required
 dist: trusty
@@ -8,11 +19,38 @@ before_install:
     /etc/apt/sources.list.d/commandbox.list
 
 install:
-  - sudo apt-get update && sudo apt-get --assume-yes install commandbox
-  - cd tests/resources/app && box install
+  # Install CommandBox and our JSON parsing binary
+  - sudo apt-get update && sudo apt-get --assume-yes install commandbox jq
+  # Test that the box binary is available and ready for our tests
+  - box version
+  # If using auto-publish, you will need to provide your API token with this line:
+  - box config set endpoints.forgebox.APIToken=$FORGEBOX_API_TOKEN > /dev/null
 
 before_script:
-  - cd $TRAVIS_BUILD_DIR && box server start
+  # Install our dependencies
+  - box install
+  # Set our matrix engine
+  - box server set app.cfengine=$ENGINE
+  # Start our server for tests
+  - box server start
 
 script: 
-  - box testbox run
+
+  - box testbox run runner=http://127.0.0.1:49615/tests/runner.cfm
+
+deploy:
+  
+  provider: script
+  on:
+    branch: development
+  script: 
+    - MODULE_VERSION="$(cat box.json | jq -r '.version')-snapshot"
+    - box bump version="$MODULE_VERSION" --minor --force
+
+  provider: script
+  on:
+    branch: master
+  script: 
+    - MODULE_VERSION="$(cat box.json | jq -r '.version')"
+    - box bump version="$MODULE_VERSION" --force
+  

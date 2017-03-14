@@ -25,31 +25,23 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app"{
 				BCrypt = getModel( "bcrypt@bcrypt" );
 			});
 
-			it( "Can load and hash", function(){
-				setup();
-				getRequestContext().setValue( "password", "coldbox" );
-
-				var e = execute( event="main.index", renderResults=true );
-				expect(	e.getRenderedContent() ).toInclude( '$' );
-			});
-
-			it( "can hash password and salt them", function(){
+			it( "Hashes and salts a password", function(){
 				// BCrypt salts the password each time before hashing it, resulting in a different hash value each time (the point of salting)
 				expect( BCrypt.hashPassword('test') ).notToBe( BCrypt.hashPassword('test') );
 			});
 
-			it( "can check password equality", function(){
+			it( "Demonstrates the ability to verify password equality", function(){
 				// this is a BCrypt hash of "test" 
 				var bCryptHashOfPasswordTest = '$2a$12$FE2J7ZLWaI2rSqejAu/84uLy7qlSufQsDsSE1lNNKyA05GG30gr8C';
 				
 				expect(	BCrypt.checkPassword( 'test', bCryptHashOfPasswordTest ) ).toBeTrue();
 			});
 
-			it( "can hash in fixed length strings", function(){
+			it( "Will produce a fixed length string", function(){
 				expect(	len( BCrypt.hashPassword('test') ) ).toBe( 60, "Database storage expects a BCrypt hash to be a 60 character string" );
 			});
 
-			it( "can hash not too slow or not too fast", function(){
+			it( "Performs at a consistent high/low speed threshold", function(){
 				var start = getTickCount();
 				BCrypt.hashPassword( 'test' );
 				var end = getTickCount();
@@ -66,8 +58,9 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app"{
 				for( var i = 1; i <= 30; i++ ){
 
 					var start = getTickCount();
-					
-					BCrypt.hashPassword( 'test' & i );
+						
+					//we're using a new instance each time in this loop to ensure singleton scope
+					getModel( "bcrypt@bcrypt" ).hashPassword( 'test' & i );
 					
 					var end = getTickCount();
 					
