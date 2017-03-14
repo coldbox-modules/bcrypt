@@ -1,8 +1,7 @@
 ﻿/**
-********************************************************************************
-Copyright 2005-2007 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-www.ortussolutions.com
-********************************************************************************
+* Copyright 2005-2007 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
+* www.ortussolutions.com
+* ---
 */
 component{
 	// Application properties
@@ -20,8 +19,8 @@ component{
 	// COLDBOX APPLICATION KEY OVERRIDE
 	COLDBOX_APP_KEY 		 = "";
 
-	this.mappings[ "/root" ] 			= getDirectoryFromPath( getCurrentTemplatePath() );
-	this.mappings[ "/moduletester" ] 	= expandpath( "../../" );
+	this.mappings[ "/tests" ] = expandpath( "../../" );
+	this.mappings[ "/moduleRoot" ] = expandpath( "../../../" );
 
 	// application start
 	public boolean function onApplicationStart(){
@@ -30,8 +29,13 @@ component{
 		return true;
 	}
 
+	// application end
+	public void function onApplicationEnd( struct appScope ){
+		arguments.appScope.cbBootstrap.onApplicationEnd( arguments.appScope );
+	}
+
 	// request start
-	public boolean function onRequestStart(String targetPage){
+	public boolean function onRequestStart( string targetPage ){
 		// Process ColdBox Request
 		application.cbBootstrap.onRequestStart( arguments.targetPage );
 

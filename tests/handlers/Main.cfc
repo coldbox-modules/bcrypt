@@ -1,1 +1,0 @@
-﻿/*** My Event Handler Hint*/component extends="coldbox.system.EventHandler"{	property name="bcrypt" inject="bcrypt@bcrypt";		/**	* Index	*/	any function index( event, rc, prc ){		return bcrypt.hashPassword( event.getValue( 'password', "tester" ) );	}	}
