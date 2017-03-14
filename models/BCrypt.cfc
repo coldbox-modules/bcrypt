@@ -44,14 +44,19 @@ component singleton threadsafe{
 	* Load the library
 	*/
 	private void function loadBCrypt(){
+
 		tryToLoadBCryptFromClassPath();
 		
 		if( NOT isBCryptLoaded() ){
+		
 			tryToLoadBCryptWithJavaLoader();
+		
 		}
 		
 		if( NOT isBCryptLoaded() ){
+		
 			throw( "BCrypt not successfully loaded.  BCrypt.jar must be present in the ColdFusion classpath or at the setting javaloader_libpath.  No operations are available." );
+		
 		}
 	}
 
@@ -60,8 +65,11 @@ component singleton threadsafe{
 	*/
 	private void function tryToLoadBCryptFromClassPath(){
 		try{
-			variables.bcrypt = createObject( "java", "BCrypt" );
+		
+			variables.bcrypt = createObject( "java", "org.mindrot.jbcrypt.BCrypt" );
+		
 		} catch( any error ) {
+		
 		}
 	}
 
@@ -70,8 +78,11 @@ component singleton threadsafe{
 	*/
 	private void function tryToLoadBCryptWithJavaLoader(){
 		try{
-			variables.bcrypt = javaLoader.create( "BCrypt" );
+		
+			variables.bcrypt = javaLoader.create( "org.mindrot.jbcrypt.BCrypt" );
+		
 		} catch( any error ) {
+		
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Copyright 2005-2007 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
 * www.ortussolutions.com
 * ---
@@ -18,9 +18,6 @@ component{
 	COLDBOX_CONFIG_FILE 	 = "";
 	// COLDBOX APPLICATION KEY OVERRIDE
 	COLDBOX_APP_KEY 		 = "";
-
-	this.mappings[ "/tests" ] = expandpath( "../../" );
-	this.mappings[ "/moduleRoot" ] = expandpath( "../../../" );
 
 	// application start
 	public boolean function onApplicationStart(){

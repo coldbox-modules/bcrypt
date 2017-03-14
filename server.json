@@ -1,8 +1,7 @@
 {
     "web":{
-    	"webroot" : "tests/resources/app",
         "rewrites":{
-            "enable":true
+            "enable":false
         },
         "http":{
             "port":"49615"

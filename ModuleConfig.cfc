@@ -1,11 +1,11 @@
 component {
 
 	// Module Properties
-	this.title 				= "CryptBox";
-	this.author 			= "Seth Feldkamp";
-	this.webURL 			= "https://github.com/sfeldkamp/coldbox-plugin-BCrypt";
-	this.description 		= "A ColdBox library for BCrypt for creating cryptographically strong (and slow) password hashes.";
-	this.version			= "2.1.0";
+	this.title 				= "coldbox-bcrypt";
+	this.author 			= "Ortus Solutions";
+	this.webURL 			= "https://github.com/coldbox-modules/cbox-bcrypt";
+	this.description 		= "A ColdBox module for BCrypt. Creates cryptographically strong (and slow) password hashes.";
+	this.version			= "@build.version@+@build.number@";
 	this.modelNamespace		= "bcrypt";
 	this.cfmapping			= "bcrypt";
 	// Module Dependencies That Must Be Loaded First, use internal names or aliases

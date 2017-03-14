@@ -1,7 +1,7 @@
 /**
 * My BDD Test
 */
-component extends="coldbox.system.testing.BaseTestCase" appMapping="/root"{
+component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app"{
 	
 /*********************************** LIFE CYCLE Methods ***********************************/
 
@@ -59,6 +59,25 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root"{
 				// this might fail sometimes locally, we should judge it on a server though (aka the CI server)
 				expect( executionDuration ).toBeLT( 750, "#executionDuration#ms - Password hashing must be faster than .75 seconds or it will impact the user experience on logging in too much." );
 				expect( executionDuration ).toBeGT( 100, "#executionDuration#ms -Password hashing must be slower than .1 seconds or it will be too easy to brute force in an offline attack" );
+			});
+
+			it( "is singleton safe and will not leak with a reasonable number of concurrent iterations", function(){
+
+				for( var i = 1; i <= 30; i++ ){
+
+					var start = getTickCount();
+					
+					BCrypt.hashPassword( 'test' & i );
+					
+					var end = getTickCount();
+					
+					var executionDuration = end - start;
+					
+					// this might fail sometimes locally, we should judge it on a server though (aka the CI server)
+					expect( executionDuration ).toBeLT( 750, "#executionDuration#ms - Password hashing must be faster than .75 seconds or it will impact the user experience on logging in too much." );
+					expect( executionDuration ).toBeGT( 100, "#executionDuration#ms - Password hashing must be slower than .1 seconds or it will be too easy to brute force in an offline attack" );
+				}
+
 			});
 
 		});

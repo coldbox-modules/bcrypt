@@ -24,9 +24,9 @@
 			missingTemplateHandler	= "",
 
 			//Extension Points
-			applicationHelper 			= "includes/helpers/ApplicationHelper.cfm",
+			applicationHelper 			= "",
 			viewsHelper					= "",
-			modulesExternalLocation		= [ "moduleRoot" ],
+			modulesExternalLocation		= [ "modules_app" ],
 			viewsExternalLocation		= "",
 			layoutsExternalLocation 	= "",
 			handlersExternalLocation  	= "",

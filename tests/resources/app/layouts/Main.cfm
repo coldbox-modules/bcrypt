@@ -3,11 +3,15 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>BCrypt Module Test Harness</title>
+	<title>cbox-bcrypt Test Harness</title>
+	<meta name="description" content="ColdBox Application Template">
+    <meta name="author" content="Ortus Solutions, Corp">
+	<!---Base URL --->
+	<base href="#event.getHTMLBaseURL()#" />
 </head>
-<body data-spy="scroll">	
+<body>
 	<!---Container And Views --->
-	<div class="container">BCrypt Module Test Harness</div>
+	<div class="container">#renderView()#</div>
 </body>
 </html>
 </cfoutput>
