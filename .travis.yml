@@ -41,14 +41,17 @@ script:
 
 # Deploy on after_success, which saves us from writing a separate bash script for deployment
 after_success:
+  # Clear out box.json development settings
+  - box package clear devDependencies
+  - box package clear installPaths
+  # Evaluate our version for the release
   - if [ $TRAVIS_BRANCH != 'master' ]; then VERSION_APPENDIX='-snapshot'; fi 
   - MODULE_VERSION="$(cat box.json | jq -r '.version')$VERSION_APPENDIX"
   - echo "Module version set to $MODULE_VERSION"
   # Assign our location archive to the commit
-  - box package set location='https://github.com/coldbox-modules/cbox-bcrypt/archive/$TRAVIS_COMMIT.zip'
-  # Clear out box.json development settings
-  - box package clear devDependencies
-  - box package clear installPaths
+  - box package set location="https://github.com/coldbox-modules/cbox-bcrypt/archive/$TRAVIS_COMMIT.zip"
+  # Debug our box json file
+  - cat box.json
   # Stable Releases
   - if [ $TRAVIS_BRANCH == 'master' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION+$TRAVIS_BUILD_NUMBER" --force; fi
   # Unstable Releases
