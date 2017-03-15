@@ -3,4 +3,4 @@ tests/resources/app/testbox
 tests/resources/app/modules
 tests/logs
 tests/results
-jBCrypt-*
+tests/resources/jBCrypt-*

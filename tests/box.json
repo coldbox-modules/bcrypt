@@ -1,7 +1,7 @@
 {
-    "name"            : "BCrypt Test Harness",
-    "version"         : "1.0.0",
-    "author"          : "Ortus Solutions",
+    "name"            :"BCrypt Test Harness",
+    "version"         :"1.0.0",
+    "author"          :"Ortus Solutions",
     "contributors"    :[
         "Seth Feldkamp",
         "Brad Wood <bdw429s@gmail.com>",
@@ -9,15 +9,15 @@
         "Jon Clausen <jclausen@ortussolutions.com>"
     ],
     "devDependencies" :{
-        "cbjavaloader": "^1.1.0",
-        "testbox"     : "^2.3.0+00044",
-        "coldbox"     : "^4.2.0+00002",
-        "jBCrypt-0.4" : "http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip"
+            "cbjavaloader":"^1.1.0",
+            "testbox"     :"^2.3.0+00044",
+            "coldbox"     :"^4.2.0+00002",
+            "jBCrypt-0.4" :"http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip"
     },
     "installPaths"    :{
-        "coldbox"     : "resources/app/coldbox",
-        "testbox"     : "resources/app/testbox",
-        "cbjavaloader": "resources/app/modules/cbjavaloader",
-        "jBCrypt-0.4" : "resources/jBCrypt-0.4"
+            "coldbox"     :"resources/app/coldbox",
+            "testbox"     :"resources/app/testbox",
+            "cbjavaloader":"resources/app/modules/cbjavaloader",
+            "jBCrypt-0.4" :"resources/jBCrypt-0.4"
     }
 }
