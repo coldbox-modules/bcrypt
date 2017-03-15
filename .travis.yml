@@ -28,8 +28,8 @@ install:
   - box config set endpoints.forgebox.APIToken=$FORGEBOX_API_TOKEN > /dev/null
 
 before_script:
-  # Install our dependencies
-  - box install
+  # Install our test dependencies
+  - cd $TRAVIS_BUILD_DIR/tests && box install && cd $TRAVIS_BUILD_DIR
   # Set our matrix engine
   - box server set app.cfengine=$ENGINE
   # Start our server for tests

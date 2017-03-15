@@ -22,17 +22,6 @@
     "dependencies"    :{
         "cbjavaloader": "^1.1.0"
     },
-    "devDependencies" :{
-        "testbox"     : "^2.3.0+00044",
-        "coldbox"     : "^4.2.0+00002",
-        "jBCrypt-0.4" : "http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip"
-    },
-    "installPaths"    :{
-        "coldbox"     : "tests/resources/app/coldbox",
-        "testbox"     : "tests/resources/app/testbox",
-        "cbjavaloader": "tests/resources/app/modules/cbjavaloader",
-        "jBCrypt-0.4" : "jBCrypt-0.4"
-    },
     "ignore"          :[
         "tests",
         "server.json",
