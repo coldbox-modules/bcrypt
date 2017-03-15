@@ -22,11 +22,13 @@ box install bcrypt
 * cbjavaloader module ( automatically installed as a dependency by Forgebox )  
 
 ## BCrypt.jar
-A compiled version (0.3) of jBCrypt is included in the `models/lib` directory.  You can update the version by following the steps below.
+A compiled version (0.4) of jBCrypt is listed as a dependency for the test harness.  You can update the version by following the steps below.
 
-1. Download jBCrypt from http://www.mindrot.org/projects/jBCrypt/.
-2. Compile `BCrypt.java` to a `.class` file named `BCrypt.class`.
-3. Package `BCrypt.class` into a jar file named `BCrypt.jar`.
+1. Visit http://www.mindrot.org/projects/jBCrypt/.
+2. Copy the link to the latest version
+3. Update the `tests/box.json` dependency with the correct version information
+4. Run `box install` from within the `tests` directory
+5. Execute `ant -f tests/resources/jBCrypt-[version number]/build.xml` and move the generated `jbcrypt.jar` file to `models/lib`
 
 
 ## Usage
