@@ -13,6 +13,10 @@ language: java
 sudo: required
 dist: trusty
 
+cache:
+  directories:
+  - $HOME/.CommandBox
+
 before_install:
   - sudo apt-key adv --keyserver keys.gnupg.net --recv 6DA70622
   - sudo echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a
@@ -53,7 +57,7 @@ deploy:
     branch:
       - master
     condition: "$ENGINE = lucee@4.5"
-    
+
   script: 
     - MODULE_VERSION="$(cat box.json | jq -r '.version')"
     - box bump version="$MODULE_VERSION" --force
