@@ -41,8 +41,6 @@
         ".gitattributes"
     ],
     "scripts"         :{
-        "postVersion" : "package set location='coldbox-modules/cbox-bcrypt#v`package version`'",
-        "onRelease"   : "publish",
-        "postPublish" : "!git push && !git push --tags"
+        "onRelease"   : "publish"
     }
 }
