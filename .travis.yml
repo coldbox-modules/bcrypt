@@ -42,6 +42,7 @@ script:
 deploy:
   #Bleeding edge release deployment
   - provider: script
+    skip_cleanup: true
     script: 
       - MODULE_VERSION="$(cat box.json | jq -r '.version')-snapshot"
       - box bump version="$MODULE_VERSION" --minor --force
@@ -51,6 +52,7 @@ deploy:
   
   #Stable release deployment
   - provider: script
+    skip_cleanup: true
     script: 
       - MODULE_VERSION="$(cat box.json | jq -r '.version')"
       - box bump version="$MODULE_VERSION+$TRAVIS_BUILD_NUMBER" --force

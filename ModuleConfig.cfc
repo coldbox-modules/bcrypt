@@ -1,17 +1,26 @@
 component {
 
 	// Module Properties
-	this.title 				= "coldbox-bcrypt";
-	this.author 			= "Ortus Solutions";
-	this.webURL 			= "https://github.com/coldbox-modules/cbox-bcrypt";
-	this.description 		= "A ColdBox module for BCrypt. Creates cryptographically strong (and slow) password hashes.";
-	this.version			= "2.5.0";
 	this.modelNamespace		= "bcrypt";
 	this.cfmapping			= "bcrypt";
 	// Module Dependencies That Must Be Loaded First, use internal names or aliases
 	this.dependencies		= [ "cbjavaloader" ];
 
 	function configure(){
+
+		//Skip information vars if the box.json file has been removed
+		if( fileExists( modulePath & '/box.json' ) ){
+			//read in our box.json file for so we don't duplicate the information above
+			var moduleInfo = deserializeJSON( fileRead( modulePath & '/box.json' ) );
+
+			this.title 				= moduleInfo.name;
+			this.author 			= moduleInfo.author;
+			this.webURL 			= moduleInfo.homepage;
+			this.description 		= moduleInfo.shortDescription;
+			this.version			= moduleInfo.version;
+			
+		}
+
 		// Module Settings		
   		settings = {
   			libPath = modulePath & "/models/lib"
