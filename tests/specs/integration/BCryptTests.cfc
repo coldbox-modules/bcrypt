@@ -73,6 +73,10 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app"{
 
 			});
 
+			it( "expects the tests to fail",function(){
+				expect( false ).toBeTrue();	
+			});
+
 		});
 	}
 	

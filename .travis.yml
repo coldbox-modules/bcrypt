@@ -39,17 +39,21 @@ script:
   - box testbox run runner=http://127.0.0.1:49615/tests/runner.cfm
 
 deploy:
-  
   provider: script
   on:
-    branch: development
+    branch: 
+      - development
+    condition: "$ENGINE = lucee@4.5"
   script: 
     - MODULE_VERSION="$(cat box.json | jq -r '.version')-snapshot"
     - box bump version="$MODULE_VERSION" --minor --force
 
   provider: script
   on:
-    branch: master
+    branch:
+      - master
+    condition: "$ENGINE = lucee@4.5"
+    
   script: 
     - MODULE_VERSION="$(cat box.json | jq -r '.version')"
     - box bump version="$MODULE_VERSION" --force
