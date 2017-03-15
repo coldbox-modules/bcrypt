@@ -41,9 +41,6 @@ script:
 
 # Deploy on after_success, which saves us from writing a separate bash script for deployment
 after_success:
-  # Clear out box.json development settings
-  - box package clear devDependencies
-  - box package clear installPaths
   # Evaluate our version for the release
   - if [ $TRAVIS_BRANCH != 'master' ]; then VERSION_APPENDIX='-snapshot'; fi 
   - MODULE_VERSION="$(cat box.json | jq -r '.version')$VERSION_APPENDIX"
