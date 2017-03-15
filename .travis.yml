@@ -55,5 +55,5 @@ after_success:
   # Stable Releases
   - if [ $TRAVIS_BRANCH == 'master' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION+$TRAVIS_BUILD_NUMBER" --force; fi
   # Unstable Releases
-  - if [ $TRAVIS_BRANCH != 'master' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION" --minor --force" --force; fi
+  - if [ $TRAVIS_BRANCH != 'master' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION" --minor --force; fi
   
