@@ -36,27 +36,14 @@ before_script:
   - box server start
 
 script: 
-
+  # Run our tests - CommandBox will return a non-zero exit code if they fail, which will fail the build
   - box testbox run runner=http://127.0.0.1:49615/tests/runner.cfm
 
-deploy:
-  #Bleeding edge release deployment
-  - provider: script
-    skip_cleanup: true
-    script: 
-      - MODULE_VERSION="$(cat box.json | jq -r '.version')-snapshot"
-      - box bump version="$MODULE_VERSION" --minor --force
-    on:
-      branch: development
-      condition: "$ENGINE = lucee@4.5"
-  
-  #Stable release deployment
-  - provider: script
-    skip_cleanup: true
-    script: 
-      - MODULE_VERSION="$(cat box.json | jq -r '.version')"
-      - box bump version="$MODULE_VERSION+$TRAVIS_BUILD_NUMBER" --force
-    on:
-      branch: master
-      condition: "$ENGINE = lucee@4.5"
+# Deploy on after_success, which saves us from writing a separate bash script for deployment
+after_success:
+  - if [ $TRAVIS_BRANCH != 'master' ]; then VERSION_APPENDIX='-snapshot'; fi 
+  - MODULE_VERSION="$(cat box.json | jq -r '.version')$VERSION_APPENDIX"
+  - echo "Module version set to $MODULE_VERSION"
+  - if [ $TRAVIS_BRANCH != 'master' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION+$TRAVIS_BUILD_NUMBER" --force; fi
+  - if [ $TRAVIS_BRANCH != 'development' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION" --minor --force" --force; fi
   
