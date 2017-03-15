@@ -15,9 +15,9 @@
     "type"            : "modules",
     "contributors"    :[
         "Seth Feldkamp",
-        "Brad Wood",
-        "Luis Majano",
-        "Jon Clausen"
+        "Brad Wood <bdw429s@gmail.com>",
+        "Luis Majano <lmajano@ortussolutions.com>",
+        "Jon Clausen <jclausen@ortussolutions.com>"
     ],
     "dependencies"    :{
         "cbjavaloader": "^1.1.0"
