@@ -1,46 +1,48 @@
 {
-    "name":"BCrypt",
-    "version":"2.5.0",
-    "author":"Ortus Solutions",
-    "location":"https://github.com/coldbox-modules/cbox-bcrypt",
-    "homepage":"https://github.com/coldbox-modules/cbox-bcrypt",
-    "documentation":"https://github.com/coldbox-modules/cbox-bcrypt",
-    "repository":{
-        "type":"git",
-        "url":"https://github.com/coldbox-modules/cbox-bcrypt"
+    "name"            : "BCrypt",
+    "version"         : "2.5.0",
+    "author"          : "Ortus Solutions",
+    "location"        : "https://github.com/coldbox-modules/cbox-bcrypt",
+    "homepage"        : "https://github.com/coldbox-modules/cbox-bcrypt",
+    "documentation"   : "https://github.com/coldbox-modules/cbox-bcrypt",
+    "repository"      :{
+        "type"        : "git",
+        "url"         : "https://github.com/coldbox-modules/cbox-bcrypt"
     },
-    "bugs":"https://ortussolutions.atlassian.net/secure/RapidBoard.jspa?projectKey=CCM",
-    "slug":"BCrypt",
-    "shortDescription":"A ColdBox module for BCrypt. Creates cryptographically strong (and slow) password hashes.",
-    "type":"modules",
-    "contributors":[
+    "bugs"            : "https://ortussolutions.atlassian.net/secure/RapidBoard.jspa?projectKey=CCM",
+    "slug"            : "BCrypt",
+    "shortDescription": "A ColdBox module for BCrypt. Creates cryptographically strong (and slow) password hashes.",
+    "type"            : "modules",
+    "contributors"    :[
         "Seth Feldkamp",
         "Brad Wood",
         "Luis Majano",
         "Jon Clausen"
     ],
-    "dependencies":{
-        "cbjavaloader":"^1.1.0"
+    "dependencies"    :{
+        "cbjavaloader": "^1.1.0"
     },
-    "devDependencies":{
-        "testbox":"^2.3.0+00044",
-        "coldbox":"^4.2.0+00002",
-        "jBCrypt-0.4":"http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip"
+    "devDependencies" :{
+        "testbox"     : "^2.3.0+00044",
+        "coldbox"     : "^4.2.0+00002",
+        "jBCrypt-0.4" : "http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip"
     },
-    "installPaths":{
-        "coldbox":"tests/resources/app/coldbox",
-        "testbox":"tests/resources/app/testbox",
-        "cbjavaloader":"tests/resources/app/modules/cbjavaloader",
-        "jBCrypt-0.4":"jBCrypt-0.4"
+    "installPaths"    :{
+        "coldbox"     : "tests/resources/app/coldbox",
+        "testbox"     : "tests/resources/app/testbox",
+        "cbjavaloader": "tests/resources/app/modules/cbjavaloader",
+        "jBCrypt-0.4" : "jBCrypt-0.4"
     },
-    "ignore":[
+    "ignore"          :[
         "tests",
         "server.json",
-        ".module.properties"
+        ".travis.yml",
+        ".gitignore",
+        ".gitattributes"
     ],
-    "scripts":{
-        "postVersion":"package set location='coldbox-modules/cbox-bcrypt#v`package version`'",
-        "onRelease":"publish",
-        "postPublish":"!git push && !git push --tags"
+    "scripts"         :{
+        "postVersion" : "package set location='coldbox-modules/cbox-bcrypt#v`package version`'",
+        "onRelease"   : "publish",
+        "postPublish" : "!git push && !git push --tags"
     }
 }
