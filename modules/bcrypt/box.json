@@ -1,8 +1,8 @@
 {
     "name"            : "BCrypt",
     "version"         : "@build.version@+@build.number@",
-    "author"          : "Ortus Solutions",
-    "location"        : "https://github.com/coldbox-modules/cbox-bcrypt",
+    "author"          : "Ortus Solutions <info@ortussolutions.com>",
+    "location"        : "http://downloads.ortussolutions.com.s3.amazonaws.com/ortussolutions/coldbox-modules/cbox-bcrypt/@build.version@/cbox-bcrypt-@build.version@.zip",
     "homepage"        : "https://github.com/coldbox-modules/cbox-bcrypt",
     "documentation"   : "https://github.com/coldbox-modules/cbox-bcrypt",
     "repository"      :{
