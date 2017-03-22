@@ -28,7 +28,7 @@ A compiled version (0.4) of jBCrypt is listed as a dependency for the test harne
 2. Copy the link to the latest version
 3. Update the `tests/box.json` dependency with the correct version information
 4. Run `box install` from within the `tests` directory
-5. Execute `ant -f tests/resources/jBCrypt-[version number]/build.xml` and move the generated `jbcrypt.jar` file to `models/lib`
+5. Execute `ant -f tests/resources/jBCrypt-[version number]/build.xml` and move the generated `jbcrypt.jar` file to `modules/bcrypt/models/lib`
 
 
 ## Usage
