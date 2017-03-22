@@ -62,7 +62,6 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 		
 		<!-- Start Init -->
 		<delete dir="${report.dir}" />
-		<mkdir dir="${report.dir}" />
 		<mkdir dir="${junitreport.dir}" />
 		<!-- update permissions -->
 		<antcall target="update.permissions" /> 
@@ -102,10 +101,10 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 			 - Recurse
 			 - Labels
 		-->
-		
 		<get dest="${report.dir}/results.txt" 
-			 src="${url.runners.default}&amp;directory=${test.directory}&amp;recurse=${test.recurse}&amp;reporter=${test.reporter}&amp;labels=${test.labels}&amp;reportPath=${report.dir}&amp;propertiesSummary=true&amp;directoryExcludes=${test.directoryExcludes}&amp;cfid=123&amp;cftoken=123" 
-			 verbose="true"/>
+			 src="${url.runner}&amp;directory=${test.directory}&amp;recurse=${test.recurse}&amp;reporter=${test.reporter}&amp;labels=${test.labels}&amp;reportPath=${report.dir}&amp;propertiesSummary=true&amp;directoryExcludes=${test.directoryExcludes}&amp;cfid=123&amp;cftoken=123" 
+			 verbose="true"
+			 ignoreerrors="true"/>
 		
 		<!-- Bundles Runner
 			You can also run tests for specific bundles by using the runner with the bundles params
@@ -116,7 +115,7 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 			 - Labels
 
 		<get dest="${report.dir}/results.html" 
-			 src="${url.runners.default}&amp;bundles=${test.bundles}&amp;reporter=${test.reporter}&amp;labels=${test.labels}&amp;propertiesSummary=true" 
+			 src="${url.runner}&amp;bundles=${test.bundles}&amp;reporter=${test.reporter}&amp;labels=${test.labels}&amp;propertiesSummary=true" 
 			 verbose="true"/>
 		 -->
 		
@@ -148,7 +147,8 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 
 		<get dest="${report.dir}/results.txt" 
 			 src="${urlRunner}&amp;directory=${test.directory}&amp;recurse=${test.recurse}&amp;reporter=${test.reporter}&amp;labels=${test.labels}&amp;reportPath=${report.dir}&amp;propertiesSummary=true&amp;directoryExcludes=${test.directoryExcludes}&amp;cfid=123&amp;cftoken=123" 
-			 verbose="true"/>
+			 verbose="true"
+			 ignoreerrors="true"/>
 
         <!-- Read Result Properties -->
         <property file="${report.dir}/TEST.properties"/>
@@ -177,8 +177,9 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 			 - ReportPath : The path where reports will be stored, by default it is the ${report.dir} directory.
 		-->
 		<get dest="${report.dir}/results.xml" 
-					 src="${url.runners.default}&amp;directory=${test.directory}&amp;recurse=${test.recurse}&amp;reporter=ANTJunit&amp;labels=${test.labels}&amp;reportPath=${report.dir}&amp;propertiesSummary=true&amp;directoryExcludes=${test.directoryExcludes}&amp;cfid=123&amp;cftoken=123" 
-					 verbose="true"/>
+			 src="${url.runner}&amp;directory=${test.directory}&amp;recurse=${test.recurse}&amp;reporter=ANTJunit&amp;labels=${test.labels}&amp;reportPath=${report.dir}&amp;propertiesSummary=true&amp;directoryExcludes=${test.directoryExcludes}&amp;cfid=123&amp;cftoken=123" 
+			 verbose="true"
+			 ignoreerrors="true"/>
 		
 		<!-- Bundles Runner
 			You can also run tests for specific bundles by using the runner with the bundles params
@@ -189,7 +190,7 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 			 - Labels
 
 		<get dest="${report.dir}/results.html" 
-			 src="${url.runners.default}&amp;bundles=${test.bundles}&amp;reporter=${test.reporter}&amp;labels=${test.labels}&amp;propertiesSummary=true" 
+			 src="${url.runner}&amp;bundles=${test.bundles}&amp;reporter=${test.reporter}&amp;labels=${test.labels}&amp;propertiesSummary=true" 
 			 verbose="true"/>
 		 -->
 		

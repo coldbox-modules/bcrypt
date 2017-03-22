@@ -1,8 +1,12 @@
 language: java
-sudo: required
-dist: trusty
+
+notifications:
+  slack:
+    secure: FIHlTn/YO7Wgumm1uIqmoEsqjQA7fV0AE94Rjc5yKzM3AquQa8HicgDVVk0d2GrKRnl0xt3j4ZJV//VJyIjlCd/QVKuj48R2ChjEY2im3+99HFPafCUI5/S2uyowKU6mJTFonH9v6p41eqxdbiAxJdDGOT0V2Gpt3UBSNuHz8ED9/aIHqv+P7M+VD6Xd2XYwctPniWlaSWx57sWcnG/VkFG45qFQAyha64uxOOe4M3ZmG/n5FfauZ8cBVLiRKEIr+CyNhh1ujfzi7+4uzMlSNL5t/BbZamAQuZzqGzGQ9RVvIlyPgUGNJtDEE/hWS09aagXF5T6EMj00szizErh4J1/x4qZwml5+TcBN31E0QmAhCtZe85sr3tYgic+hEz9XX1yymQzf/C7n4to2yNvq0r4g51xDk8IuP95WEh7zaqLlvFZvBFgxpHZBMYlRvhytjOYDeIFRMcGwHZcXosaG2ejqDwcGq/LC4oeG4sSwmg9sdRrtcmcanrNqrBka86WYO6LntI3JdZ86/1ACEUHzhCCwvrKELc9Ji1xxGAgS7QKH+s2/hnJuiMyv73gOVLKYC+wPMLt+fvOmPLSEl+PJiAIlToBq1KUBg03RSQLfPOLD7OrJ8VvDZsEPwejqlGDyc4wRglS9OTi7SnN5LYHSDNDdGdREegWqq9qDHEYEVLI=
 
 env:
+  global:
+    - MODULE_ID=cbox-bcrypt
   matrix:
     - ENGINE=lucee@4.5
     - ENGINE=lucee@5
@@ -10,47 +14,91 @@ env:
     - ENGINE=adobe@11
     - ENGINE=adobe@2016
 
+branches:
+  only:
+  - development
+  - master
+
+dist: trusty
+
+sudo: required
+
 cache:
   directories:
   - $HOME/.CommandBox
-
+  
 before_install:
+  # CommandBox Keys
   - sudo apt-key adv --keyserver keys.gnupg.net --recv 6DA70622
   - sudo echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a
     /etc/apt/sources.list.d/commandbox.list
 
 install:
-  # Install CommandBox and our JSON parsing binary
-  - sudo apt-get update && sudo apt-get --assume-yes install commandbox jq
+  # Install Commandbox
+  - sudo apt-get update && sudo apt-get --assume-yes install git haveged rsync commandbox
   # Test that the box binary is available and ready for our tests
   - box version
   # If using auto-publish, you will need to provide your API token with this line:
   - box config set endpoints.forgebox.APIToken=$FORGEBOX_API_TOKEN > /dev/null
+  # Setup for our tests
+  - mkdir tests/results
+  - sudo chmod -R 775 tests/results
 
-before_script:
-  # Install our test dependencies
-  - cd $TRAVIS_BUILD_DIR/tests && box install && cd $TRAVIS_BUILD_DIR
-  # Set our matrix engine
-  - box server set app.cfengine=$ENGINE
-  # Start our server for tests
-  - box server start
+# Build script - note module versioning is passed to ANT
+script:
+  # run our dependency install to ensure the workbench is in place
+  - box install
+  # add our module-specific build properties
+  - printf "\nmodule.name=$MODULE_ID" >> workbench/build.properties
+  - printf "\ncfengine=$ENGINE" >> workbench/build.properties
+  # execute our build
+  - ant -DisTravis=true -Dbuild.number=$TRAVIS_BUILD_NUMBER -Dbuild.branch=$TRAVIS_BRANCH -f workbench/build.xml
 
-script: 
-  # Run our tests - CommandBox will return a non-zero exit code if they fail, which will fail the build
-  - box testbox run runner=http://127.0.0.1:49615/tests/runner.cfm
-
-# Deploy on after_success, which saves us from writing a separate bash script for deployment
-after_success:
-  # Evaluate our version for the release
-  - if [ $TRAVIS_BRANCH != 'master' ]; then VERSION_APPENDIX='-snapshot'; fi 
-  - MODULE_VERSION="$(cat box.json | jq -r '.version')$VERSION_APPENDIX"
-  - echo "Module version set to $MODULE_VERSION"
-  # Assign our location archive to the commit
-  - box package set location="https://github.com/coldbox-modules/cbox-bcrypt/archive/$TRAVIS_COMMIT.zip"
-  # Debug our box json file
-  - cat box.json
-  # Stable Releases
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ $TRAVIS_BRANCH == 'master' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION+$TRAVIS_BUILD_NUMBER" --force; fi
-  # Unstable Releases
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ $TRAVIS_BRANCH != 'master' ] && [ $ENGINE == 'lucee@4.5' ]; then box bump version="$MODULE_VERSION" --minor --force; fi
+after_failure:
+  - cd $TRAVIS_BUILD_DIR
+  # Display the contents of our root directory
+  # Spit out our Commandbox log in case we need to debug
+  - box server log name=$ENGINE
+  - cat `box system-log`
   
+before_deploy:
+  - cd $TRAVIS_BUILD_DIR
+  - mkdir -p s3deploy
+  - rsync -av ./artifacts/$MODULE_ID/ ./s3deploy/
+  - rm -f ./s3deploy/box-repo.json
+
+deploy:
+  #Module Deployment
+  - provider: s3
+    on:
+      branch: 
+        - master
+        - development
+      condition: "$ENGINE = lucee@4.5"
+    skip_cleanup: true
+    #AWS Credentials need to be set in Travis
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_ACCESS_SECRET
+    bucket: "downloads.ortussolutions.com"
+    local-dir: s3deploy
+    upload-dir: ortussolutions/coldbox-modules/$MODULE_ID
+    acl: public_read
+  #API Docs Deployment
+  - provider: s3
+    on:
+      branch: 
+        - master
+        - development
+      condition: "$ENGINE = lucee@4.5"
+    skip_cleanup: true
+    #AWS Credentials need to be set in Travis
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_ACCESS_SECRET
+    bucket: "apidocs.ortussolutions.com"
+    local-dir: build/apidocs
+    upload-dir: coldbox-modules/$MODULE_ID
+    acl: public_read
+
+
+after_deploy:
+  - cd $TRAVIS_BUILD_DIR/build && box forgebox publish

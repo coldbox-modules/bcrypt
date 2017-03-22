@@ -1,24 +1,28 @@
-component {
+/**
+* Copyright Since 2005 Ortus Solutions, Corp
+* www.coldbox.org | www.luismajano.com | www.ortussolutions.com | www.gocontentbox.org
+**************************************************************************************
+*/
+component{
+	this.name = "A TestBox Runner Suite " & hash( getCurrentTemplatePath() );
+	// any other application.cfc stuff goes below:
+	this.sessionManagement = true;
+	// Turn on/off white space managemetn
+	this.whiteSpaceManagement = "smart";
 
-    this.name = "ColdBoxTestingSuite" & hash(getCurrentTemplatePath());
-    this.sessionManagement  = true;
-    this.setClientCookies   = true;
-    this.sessionTimeout     = createTimeSpan( 0, 0, 15, 0 );
-    this.applicationTimeout = createTimeSpan( 0, 0, 15, 0 );
+	// any mappings go here, we create one that points to the root called test.
+	this.mappings[ "/tests" ] = getDirectoryFromPath( getCurrentTemplatePath() );
+	rootPath = REReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
+	this.mappings[ "/root" ]   = rootPath;
+	this.mappings[ "/coldbox" ] = rootPath & "/coldbox";
+	this.mappings[ "/testbox" ] = rootPath & "/testbox";
 
-    testsPath = getDirectoryFromPath( getCurrentTemplatePath() );
-    this.mappings[ "/tests" ] = testsPath;
-    rootPath = REReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
-    this.mappings[ "/root" ] = rootPath;
-    this.mappings[ "/testingModuleRoot" ] = listDeleteAt( rootPath, listLen( rootPath, '\/' ), "\/" );
-    this.mappings[ "/app" ] = testsPath & "resources/app";
-    this.mappings[ "/coldbox" ] = testsPath & "resources/app/coldbox";
-    this.mappings[ "/testbox" ] = testsPath & "resources/app/testbox";
+	this.mappings[ "/bcrypt" ] = rootPath & "/bcrypt";
+	this.mappings[ "/cbjavaloader" ] = rootPath & "/cbjavaloader";
 
-    function upOneLevel( path ) {
-        var p = expandPath( path );
-        var pArray = listToArray( p, "/" );
-        arrayDeleteAt( pArray, arrayLen( pArray ) );
-        return "/" & arrayToList( pArray , "/" ) & "/";
-    }
+
+	// request start
+	public boolean function onRequestStart( String targetPage ){
+		return true;
+	}
 }
