@@ -1,53 +1,28 @@
-﻿/**
-********************************************************************************
-Copyright 2005-2007 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-www.ortussolutions.com
-********************************************************************************
+/**
+* Copyright Since 2005 Ortus Solutions, Corp
+* www.coldbox.org | www.luismajano.com | www.ortussolutions.com | www.gocontentbox.org
+**************************************************************************************
 */
 component{
-	// Application properties
-	this.name = hash( getCurrentTemplatePath() );
+	this.name = "A TestBox Runner Suite " & hash( getCurrentTemplatePath() );
+	// any other application.cfc stuff goes below:
 	this.sessionManagement = true;
-	this.sessionTimeout = createTimeSpan(0,0,30,0);
-	this.setClientCookies = true;
+	// Turn on/off white space managemetn
+	this.whiteSpaceManagement = "smart";
 
-	// COLDBOX STATIC PROPERTY, DO NOT CHANGE UNLESS THIS IS NOT THE ROOT OF YOUR COLDBOX APP
-	COLDBOX_APP_ROOT_PATH = getDirectoryFromPath( getCurrentTemplatePath() );
-	// The web server mapping to this application. Used for remote purposes or static purposes
-	COLDBOX_APP_MAPPING   = "";
-	// COLDBOX PROPERTIES
-	COLDBOX_CONFIG_FILE 	 = "";
-	// COLDBOX APPLICATION KEY OVERRIDE
-	COLDBOX_APP_KEY 		 = "";
+	// any mappings go here, we create one that points to the root called test.
+	this.mappings[ "/tests" ] = getDirectoryFromPath( getCurrentTemplatePath() );
+	rootPath = REReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
+	this.mappings[ "/root" ]   = rootPath;
+	this.mappings[ "/coldbox" ] = rootPath & "/coldbox";
+	this.mappings[ "/testbox" ] = rootPath & "/testbox";
 
-	this.mappings[ "/root" ] 			= getDirectoryFromPath( getCurrentTemplatePath() );
-	this.mappings[ "/moduletester" ] 	= expandpath( "../../" );
+	this.mappings[ "/bcrypt" ] = rootPath & "/bcrypt";
+	this.mappings[ "/cbjavaloader" ] = rootPath & "/cbjavaloader";
 
-	// application start
-	public boolean function onApplicationStart(){
-		application.cbBootstrap = new coldbox.system.Bootstrap( COLDBOX_CONFIG_FILE, COLDBOX_APP_ROOT_PATH, COLDBOX_APP_KEY, COLDBOX_APP_MAPPING );
-		application.cbBootstrap.loadColdbox();
-		return true;
-	}
 
 	// request start
-	public boolean function onRequestStart(String targetPage){
-		// Process ColdBox Request
-		application.cbBootstrap.onRequestStart( arguments.targetPage );
-
+	public boolean function onRequestStart( String targetPage ){
 		return true;
 	}
-
-	public void function onSessionStart(){
-		application.cbBootStrap.onSessionStart();
-	}
-
-	public void function onSessionEnd( struct sessionScope, struct appScope ){
-		arguments.appScope.cbBootStrap.onSessionEnd( argumentCollection=arguments );
-	}
-
-	public boolean function onMissingTemplate( template ){
-		return application.cbBootstrap.onMissingTemplate( argumentCollection=arguments );
-	}
-
 }

@@ -1,28 +1,31 @@
 {
-    "name":"CryptBox",
-    "version":"2.1.0+0000",
-    "author":"Seth Feldkamp",
-    "homepage":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt",
-    "documentation":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt",
-    "repository":{
-        "type":"git",
-        "url":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt"
-    },
-    "bugs":"https://github.com/sfeldkamp/coldbox-plugin-BCrypt/issues",
-    "slug":"BCrypt",
-    "shortDescription":"A ColdBox library for BCrypt for creating cryptographically strong (and slow) password hashes.",
-    "type":"modules",
+    "name":"BCrypt Test Harness",
+    "version":"1.0.0",
+    "author":"Ortus Solutions",
     "contributors":[
-    	"Seth Feldkamp",
-        "Brad Wood",
-        "Luis Majano"
+        "Seth Feldkamp",
+        "Brad Wood <bdw429s@gmail.com>",
+        "Luis Majano <lmajano@ortussolutions.com>",
+        "Jon Clausen <jclausen@ortussolutions.com>"
     ],
-    "dependencies":{
-        "cbjavaloader":"1.1.0"
+    "devDependencies":{
+        "cbjavaloader":"^1.1.0",
+        "testbox":"^2.3.0+00044",
+        "coldbox":"^4.2.0+00002",
+        "jBCrypt-0.4":"http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip",
+        "workbench":"git+https://github.com/Ortus-Solutions/unified-workbench.git"
     },
-    "ignore":[
-        "BCryptTest.cfc",
-        "java",
-        "tests"
-    ]
+    "installPaths":{
+        "coldbox":"coldbox",
+        "testbox":"testbox",
+        "cbjavaloader":"modules/cbjavaloader",
+        "jBCrypt-0.4":"jBCrypt-0.4",
+        "workbench":"workbench"
+    },
+    "testbox":{
+        "runner":"http://localhost:49616/tests/runner.cfm"
+    },
+    "scripts":{
+        "postVersion":"recipe workbench/bump.boxr"
+    }
 }

@@ -1,5 +1,20 @@
-tests/coldbox
-tests/testbox
-tests/modules
-tests/logs
-tests/tests/results
+# IDE Stuff
+.settings
+settings.xml
+
+# Logs
+logs/*.log
+
+# Test Results
+tests/results/*
+
+# Dependenncies
+coldbox/*
+testbox/*
+artifacts/*
+apidocs/docbox/*
+workbench/*
+build/*
+jBCrypt-*/*
+modules/*
+!modules/bcrypt
