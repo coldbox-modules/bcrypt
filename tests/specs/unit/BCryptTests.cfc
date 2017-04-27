@@ -8,6 +8,8 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root"{
 	// executes before all suites+specs in the run() method
 	function beforeAll(){
 		super.beforeAll();
+
+		variables.passwordTestString = "F}766dVr7XzdEa2<>!%&^%$##@!)( * )/|\"
 	}
 
 	// executes after all suites+specs in the run() method
@@ -27,23 +29,23 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root"{
 
 			it( "Hashes and salts a password", function(){
 				// BCrypt salts the password each time before hashing it, resulting in a different hash value each time (the point of salting)
-				expect( BCrypt.hashPassword('test') ).notToBe( BCrypt.hashPassword('test') );
+				expect( BCrypt.hashPassword( variables.passwordTestString ) ).notToBe( BCrypt.hashPassword( variables.passwordTestString ) );
 			});
 
 			it( "Demonstrates the ability to verify password equality", function(){
-				// this is a BCrypt hash of "test" 
-				var bCryptHashOfPasswordTest = '$2a$12$FE2J7ZLWaI2rSqejAu/84uLy7qlSufQsDsSE1lNNKyA05GG30gr8C';
+				// this is a BCrypt hash of our password test string
+				var bCryptHashOfPasswordTest = '$2a$12$whxAYoS9Myu3dXokd/mlPOke6lJGlMA87kkCjK7v2bg9Pdcw/So1q';
 				
-				expect(	BCrypt.checkPassword( 'test', bCryptHashOfPasswordTest ) ).toBeTrue();
+				expect(	BCrypt.checkPassword( variables.passwordTestString, bCryptHashOfPasswordTest ) ).toBeTrue();
 			});
 
 			it( "Will produce a fixed length string", function(){
-				expect(	len( BCrypt.hashPassword('test') ) ).toBe( 60, "Database storage expects a BCrypt hash to be a 60 character string" );
+				expect(	len( BCrypt.hashPassword( variables.passwordTestString ) ) ).toBe( 60, "Database storage expects a BCrypt hash to be a 60 character string" );
 			});
 
 			it( "Performs at a consistent high/low speed threshold", function(){
 				var start = getTickCount();
-				BCrypt.hashPassword( 'test' );
+				BCrypt.hashPassword( variables.passwordTestString );
 				var end = getTickCount();
 				var executionDuration = end - start;
 				debug( '#executionDuration# milliseconds' );
@@ -60,7 +62,7 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root"{
 					var start = getTickCount();
 						
 					//we're using a new instance each time in this loop to ensure singleton scope
-					getModel( "bcrypt@bcrypt" ).hashPassword( 'test' & i );
+					getModel( "bcrypt@bcrypt" ).hashPassword( variables.passwordTestString & i );
 					
 					var end = getTickCount();
 					
