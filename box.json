@@ -10,8 +10,8 @@
     ],
     "devDependencies":{
         "cbjavaloader":"^1.1.0",
-        "testbox":"^2.3.0+00044",
-        "coldbox":"^4.2.0+00002",
+        "testbox":"^2.3.0",
+        "coldbox":"4.2.0",
         "jBCrypt-0.4":"http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip",
         "workbench":"git+https://github.com/Ortus-Solutions/unified-workbench.git"
     },
