@@ -9,7 +9,7 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
 	function beforeAll(){
 		super.beforeAll();
 
-		variables.passwordTestString = "F}766dVr7XzdEa2<>!%&^%$##@!)( * )/|\"
+		variables.passwordTestString = "F}766dVr7XzdEa2<>!%&^%$##@!)( * )/|\";
 	}
 
 	// executes after all suites+specs in the run() method
