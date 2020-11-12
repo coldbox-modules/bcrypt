@@ -50,7 +50,7 @@ script:
   # run our matrix server
   - box server start serverConfigFile="server-${ENGINE}.json"
   # Startup the app
-  - curl http://localhost:60299
+  #- curl http://localhost:60299
   # Debugging of tests
   #- curl http://localhost:60299/tests/runner.cfm?reporter=json -o testresults.json && cat testresults.json
   # move back to build dir to build it
@@ -61,8 +61,10 @@ script:
   #- cat build/results.json
 
 after_failure:
-  - cd $TRAVIS_BUILD_DIR/test-harness
+  # Cat results just in case for debugging.
+  - curl http://localhost:60299
   # Display the contents of our root directory
+  - cd $TRAVIS_BUILD_DIR/test-harness
   # Spit out our Commandbox log in case we need to debug
   - box server log server-${ENGINE}.json
   - cat `box system-log`
