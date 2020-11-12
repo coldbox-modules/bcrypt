@@ -1,12 +1,12 @@
-# BCrypt Module for the Coldbox Framework [![Build Status](https://travis-ci.org/coldbox-modules/cbox-bcrypt.svg?branch=master)](https://travis-ci.org/coldbox-modules/cbox-bcrypt)
+# BCrypt Module for the ColdBox Framework [![Build Status](https://travis-ci.org/coldbox-modules/bcrypt.svg?branch=development)](https://travis-ci.org/coldbox-modules/bcrypt)
 
 BCrypt's primary usage would be for the secure hashing of passwords.  The hashing method provides a high level of security, but also makes it too slow use as a simple digest. It is also not reversible, and therefore is not suitable for encrypting transmission data.
-
 
 More information about BCrypt:
 
 * http://en.wikipedia.org/wiki/Bcrypt
 * http://bcrypt.sourceforge.net/
+* http://www.mindrot.org/projects/jBCrypt/
 
 ## Installation
 
@@ -18,18 +18,18 @@ box install bcrypt
 
 ## Requirements
 
-* ColdBox Framework 4.0+
-* cbjavaloader module ( automatically installed as a dependency by Forgebox )  
+* ColdBox Framework 5.0+
+* `cbjavaloader` module ( automatically installed as a dependency by Forgebox )
 
 ## BCrypt.jar
-A compiled version (0.4) of jBCrypt is listed as a dependency for the test harness.  You can update the version by following the steps below.
+
+A compiled version (0.4) of **jBCrypt** is listed as a dependency for the test harness.  You can update the version by following the steps below.
 
 1. Visit http://www.mindrot.org/projects/jBCrypt/.
 2. Copy the link to the latest version
-3. Update the `tests/box.json` dependency with the correct version information
-4. Run `box install` from within the `tests` directory
-5. Execute `ant -f tests/resources/jBCrypt-[version number]/build.xml` and move the generated `jbcrypt.jar` file to `modules/bcrypt/models/lib`
-
+3. Update the `test-harness/box.json` dependency with the correct version information
+4. Run `box install` from within the `test-harness` directory
+5. Execute `ant -f test-harness/resources/jBCrypt-[version number]/build.xml` and move the generated `jbcrypt.jar` file to `models/lib`
 
 ## Usage
 
@@ -39,13 +39,55 @@ A compiled version (0.4) of jBCrypt is listed as a dependency for the test harne
 This module registers a wirebox mapping to the Bcrypt singleton, `BCrypt@BCrypt`, which you may inject or instantiate in your componets:
 
 ```js
+// Long Format
 property name="BCrypt" inject="BCrypt@BCrypt";
+
+// Module Alias Shortcut
+property name="BCrypt" inject="@BCrypt";
 ```
 
 or via `getInstance()` ( a ColdBox framework supertype method ) inside your handlers, views, interceptors, etc.
 
 ```js
 getInstance( "BCrypt@BCrypt" )
+getInstance( "@BCrypt" )
+```
+
+### BCrypt Mixins
+
+We have also created three mixin helpers that will be injected to all your handlers, interceptors, layouts and views: `bcryptHash(), bcryptCheck(), bcryptSalt()`
+
+```js
+/**
+ * Hashes an incoming input string according to work factor and salt
+ *
+ * @password The input password to encrypt
+ * @workFactor Optional work factor
+ *
+ * @return The bcrypted password
+ */
+string function bcryptHash(
+	required string password,
+	workFactor,
+	salt
+)
+
+/**
+ * Check if the incoming candidate is the same as a bcrypthash, usually the best check for comparing them.
+ *
+ * @candidate The plain text string to compare against the encrypted hash
+ * @bCryptHash The bCrypt hash to compare it to
+ *
+ * @return True - if the match, false if they dont!
+ */
+boolean function bcryptCheck( required string candidate, required string bCryptHash )
+
+/**
+ * Generates a salt for you.
+ *
+ * @workFactor The workfactor to use for the salt, by default we use the one in the settings
+ */
+string function bcryptSalt( workFactor )
 ```
 
 ### Generating a password hash
@@ -53,15 +95,26 @@ getInstance( "BCrypt@BCrypt" )
 The hashed password should be persisted so candidate passwords (submitted from login) can be checked against.
 
 ```js
-var hashedPassword = getInstance( "BCrypt@BCrypt" ).hashPassword( plaintextPassword );
+var hashedPassword = getInstance( "BCrypt" ).hashPassword( plaintextPassword );
 ```
-    
+
 ### Checking a password hash
 
 The `plaintextPasswordCandidate` is the password the user submits for authentication.  The hashed password is retrieved for the user being authenticated.
 
 ```js
-var isSamePassword = getInstance( "BCrypt@BCrypt" ).checkPassword( plaintextPasswordCandidate, hashedPassword );
+var isSamePassword = getInstance( "BCrypt" ).checkPassword( plaintextPasswordCandidate, hashedPassword );
+```
+
+### Using a Custom Salt
+
+Internally we generate a `salt` for you according to the default work factor.  You can however, alter this and pass in your own salt:
+
+```js
+var hashedPassword = getInstance( "BCrypt" ).hashPassword( 
+	password : plaintextPassword,
+	salt : mySalt
+);
 ```
 
 ### Configuring WorkFactor
@@ -71,23 +124,21 @@ var isSamePassword = getInstance( "BCrypt@BCrypt" ).checkPassword( plaintextPass
 You can also set the workFactor on a per-call basis by passing it in as a second parameter to the `hashPassword` method like so:
 
 ```js
-var hashedPassword = getInstance( "BCrypt@BCrypt" ).hashPassword( plaintextPassword, 7 );
+var hashedPassword = getInstance( "@BCrypt" ).hashPassword( plaintextPassword, 7 );
 ```
 
 ### BCrypt Settings
 
-You may override the default work factor by creating a `BCrypt` settings struct in your `ColdBox.cfc`:
+You may override the default work factor by creating a `BCrypt` settings struct in your `ColdBox.cfc` under the `moduleSettings` struct:
 
 
 ```js
-BCrypt = {
-    workFactor = 12
+moduleSettings = {
+	bcrypt = {
+		workFactor = 15
+	}
 };
 ```
-
-You can read more about this module here: https://github.com/coldbox-modules/cbox-bcrypt/wiki
-
-
 
 ********************************************************************************
 Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp

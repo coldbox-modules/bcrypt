@@ -1,0 +1,24 @@
+{
+    "name":"Tester",
+    "version":"0.0.0",
+    "slug":"tester",
+    "private":true,
+    "description":"",
+    "dependencies":{
+        "coldbox":"^6.0.0",
+        "cbjavaloader":"^2.0.0+49"
+    },
+    "devDependencies":{
+        "jBCrypt-0.4":"http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip",
+        "testbox":"^4.0.0"
+    },
+    "installPaths":{
+        "coldbox":"coldbox/",
+        "testbox":"testbox/",
+        "jBCrypt-0.4":"jBCrypt-0.4/",
+        "cbjavaloader":"modules/cbjavaloader/"
+    },
+    "testbox":{
+        "runner":"http://localhost:60299/tests/runner.cfm"
+    }
+}
