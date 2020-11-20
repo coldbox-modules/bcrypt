@@ -34,7 +34,7 @@ component singleton threadsafe{
 	string function hashPassword(
 		required string password,
 		workFactor=variables.settings.workFactor,
-		salt      =generateSalt()
+		salt      =generateSalt( arguments.workFactor )
 	){
 		return variables.bcrypt.hashpw( arguments.password, arguments.salt );
 	}
