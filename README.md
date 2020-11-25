@@ -1,4 +1,4 @@
-# BCrypt Module for the ColdBox Framework [![Build Status](https://travis-ci.org/coldbox-modules/bcrypt.svg?branch=development)](https://travis-ci.org/coldbox-modules/bcrypt)
+# BCrypt Module for the ColdBox Framework [![Build Status](https://travis-ci.com/coldbox-modules/bcrypt.svg?branch=development)](https://travis-ci.com/coldbox-modules/bcrypt)
 
 BCrypt's primary usage would be for the secure hashing of passwords.  The hashing method provides a high level of security, but also makes it too slow use as a simple digest. It is also not reversible, and therefore is not suitable for encrypting transmission data.
 

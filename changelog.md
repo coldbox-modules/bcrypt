@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ----
 
+## [3.0.1] => 2020-NOV-25
+
+### Fixed
+
+* @wpdebruin <wil@site4u.nl> - enabled `workfactor` to be used in `hashPassword()`
+
+----
+
 ## [3.0.0] => 2020-NOV-1
 
 ### Added
