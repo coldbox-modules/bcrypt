@@ -7,7 +7,7 @@ component singleton threadsafe{
 
 	// DI
 	property name="javaLoader"		inject="loader@cbjavaloader";
-	property name="settings"          inject="coldbox:modulesettings:bcrypt";
+	property name="settings"          inject="box:modulesettings:bcrypt";
 
 	/**
 	 * Constructor

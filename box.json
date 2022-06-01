@@ -1,6 +1,6 @@
 {
     "name":"BCrypt",
-    "version":"3.0.1",
+    "version":"3.1.0",
     "location":"https://downloads.ortussolutions.com/ortussolutions/coldbox-modules/bcrypt/@build.version@/bcrypt-@build.version@.zip",
     "author":"Ortus Solutions <info@ortussolutions.com>",
     "homepage":"https://github.com/coldbox-modules/bcrypt",
@@ -9,6 +9,12 @@
         "type":"git",
         "url":"https://github.com/coldbox-modules/bcrypt"
     },
+	"license":[
+        {
+            "type":"MIT",
+            "URL":"https://github.com/coldbox-modules/bcrypt/LICENSE"
+        }
+    ],
     "bugs":"https://ortussolutions.atlassian.net/secure/RapidBoard.jspa?projectKey=CCM",
     "slug":"BCrypt",
     "shortDescription":"A ColdBox module for BCrypt. Creates cryptographically strong (and slow) password hashes.",
