@@ -12,7 +12,7 @@ on:
 
 jobs:
   tests:
-    uses: coldbox-modules/cbvalidation/.github/workflows/tests.yml@development
+    uses: coldbox-modules/bcrypt/.github/workflows/tests.yml@development
 
   # Format PR
   format:
