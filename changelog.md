@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ----
 
+## [3.1.0] => 2022-SEP-06
+
+### Added
+
+* Compatibility with ColdBox and CommandBox modules
+* New module template updates
+* Github actions build process
+
+
+----
+
 ## [3.0.1] => 2020-NOV-25
 
 ### Fixed

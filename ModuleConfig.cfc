@@ -22,10 +22,7 @@ component {
 	 */
 	function configure(){
 		// Module Settings
-		settings = {
-			libPath    : modulePath & "/models/lib",
-			workFactor : 12
-		};
+		settings = { libPath : modulePath & "/models/lib", workFactor : 12 };
 	}
 
 	/**

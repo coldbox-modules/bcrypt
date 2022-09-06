@@ -60,7 +60,8 @@
 					properties = {
 						filename = "tester", filePath="/#appMapping#/logs"
 					}
-				}
+				},
+				console : { class : "coldbox.system.logging.appenders.ConsoleAppender" }
 			},
 			// Root Logger
 			root = { levelmax="DEBUG", appenders="*" },
