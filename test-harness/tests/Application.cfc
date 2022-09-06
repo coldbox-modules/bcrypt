@@ -6,39 +6,67 @@ www.ortussolutions.com
 */
 component {
 
+	// UPDATE THE NAME OF THE MODULE IN TESTING BELOW
+	request.MODULE_NAME = "bcrypt";
+	request.MODULE_PATH = "bcrypt";
+
 	// APPLICATION CFC PROPERTIES
-	this.name = "ColdBoxTestingSuite" & hash( getCurrentTemplatePath() );
-	this.sessionManagement = true;
-	this.clientManagement = true;
-	this.sessionTimeout = createTimespan( 0, 0, 15, 0 );
-	this.applicationTimeout = createTimespan( 0, 0, 15, 0 );
-	this.setClientCookies = true;
+	this.name                 = "ColdBoxTestingSuite";
+	this.sessionManagement    = true;
+	this.setClientCookies     = true;
+	this.sessionTimeout       = createTimespan( 0, 0, 15, 0 );
+	this.applicationTimeout   = createTimespan( 0, 0, 15, 0 );
+	// Turn on/off white space management
+	this.whiteSpaceManagement = "smart";
+	this.enableNullSupport    = shouldEnableFullNullSupport();
 
 	// Create testing mapping
 	this.mappings[ "/tests" ] = getDirectoryFromPath( getCurrentTemplatePath() );
 
 	// The application root
-	rootPath = reReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
+	rootPath                 = reReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
 	this.mappings[ "/root" ] = rootPath;
 
-	// UPDATE THE NAME OF THE MODULE IN TESTING BELOW
-	request.MODULE_NAME = "bcrypt";
-
 	// The module root path
-	moduleRootPath = reReplaceNoCase( this.mappings[ "/root" ], "#request.module_name#(\\|/)test-harness(\\|/)", "" );
-	this.mappings[ "/moduleroot" ] = moduleRootPath;
+	moduleRootPath = reReplaceNoCase(
+		this.mappings[ "/root" ],
+		"#request.module_name#(\\|/)test-harness(\\|/)",
+		""
+	);
+	this.mappings[ "/moduleroot" ]            = moduleRootPath;
 	this.mappings[ "/#request.MODULE_NAME#" ] = moduleRootPath & "#request.MODULE_NAME#";
 
 	function onRequestStart( required targetPage ){
+		// Set a high timeout for long running tests
+		setting requestTimeout   ="9999";
+		// New ColdBox Virtual Application Starter
+		request.coldBoxVirtualApp= new coldbox.system.testing.VirtualApp( appMapping = "/root" );
 
-		// Cleanup
-		if( !isNull( application.cbController ) ){
-			application.cbController.getLoaderService().processShutdown();
+		// If hitting the runner or specs, prep our virtual app
+		if ( getBaseTemplatePath().replace( expandPath( "/tests" ), "" ).reFindNoCase( "(runner|specs)" ) ) {
+			request.coldBoxVirtualApp.startup();
 		}
-		structDelete( application, "cbController" );
-		structDelete( application, "wirebox" );
+
+		// ORM Reload for fresh results
+		if ( structKeyExists( url, "fwreinit" ) ) {
+			if ( structKeyExists( server, "lucee" ) ) {
+				pagePoolClear();
+			}
+			// ormReload();
+			request.coldBoxVirtualApp.restart();
+		}
 
 		return true;
+	}
+
+	public void function onRequestEnd( required targetPage ){
+		request.coldBoxVirtualApp.shutdown();
+	}
+
+	private boolean function shouldEnableFullNullSupport(){
+		var system = createObject( "java", "java.lang.System" );
+		var value  = system.getEnv( "FULL_NULL" );
+		return isNull( value ) ? false : !!value;
 	}
 
 }

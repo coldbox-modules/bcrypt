@@ -10,7 +10,7 @@
     },
     "devDependencies":{
         "jBCrypt-0.4":"http://www.mindrot.org/files/jBCrypt/jBCrypt-0.4.zip",
-        "testbox":"^4.0.0"
+        "testbox":"*"
     },
     "installPaths":{
         "coldbox":"coldbox/",

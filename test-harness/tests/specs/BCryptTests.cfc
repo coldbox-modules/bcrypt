@@ -37,12 +37,7 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
 				// this is a BCrypt hash of our password test string
 				var bCryptHashOfPasswordTest = "$2a$12$whxAYoS9Myu3dXokd/mlPOke6lJGlMA87kkCjK7v2bg9Pdcw/So1q";
 
-				expect(
-					variables.bcrypt.checkPassword(
-						variables.passwordTestString,
-						bCryptHashOfPasswordTest
-					)
-				).toBeTrue();
+				expect( variables.bcrypt.checkPassword( variables.passwordTestString, bCryptHashOfPasswordTest ) ).toBeTrue();
 			} );
 
 			it( "Will produce a fixed length string", function(){
