@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-----
+## [Unreleased]
+
+### Added
+
+- Github action updates
+- ColdBox 7 auto-testing
 
 ## [3.1.0] => 2022-SEP-06
 
@@ -15,16 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * New module template updates
 * Github actions build process
 
-
-----
-
 ## [3.0.1] => 2020-NOV-25
 
 ### Fixed
 
 * @wpdebruin <wil@site4u.nl> - enabled `workfactor` to be used in `hashPassword()`
-
-----
 
 ## [3.0.0] => 2020-NOV-1
 
@@ -47,15 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * ACF11 Support
 * Lucee 4.5 Support
 
-----
-
 ## [2.5.0] => 2017-MAR-22
 
 * Updated BCrypt library to v0.4
 * Fixes a memory leak when performing over 10 concurrent hashes
 * Module test harness updates
-
-----
 
 ## [2.1.0] => 2016-MAY-04
 
