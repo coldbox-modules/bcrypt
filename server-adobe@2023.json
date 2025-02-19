@@ -1,8 +1,8 @@
 {
-    "name":"bcrypt-adobe@2021",
+    "name":"bcrypt-adobe@2023",
     "app":{
-        "serverHomeDirectory":".engine/adobe2021",
-        "cfengine":"adobe@2021"
+        "serverHomeDirectory":".engine/adobe2023",
+        "cfengine":"adobe@2023"
     },
     "web":{
         "http":{
@@ -15,9 +15,6 @@
         "aliases":{
             "/moduleroot/bcrypt":"./"
         }
-    },
-	"JVM":{
-        "javaVersion":"openjdk11_jre"
     },
     "openBrowser":"false",
 	"cfconfig": {

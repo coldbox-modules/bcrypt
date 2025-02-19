@@ -1,6 +1,6 @@
 {
     "name":"BCrypt",
-    "version":"3.1.0",
+    "version":"3.2.0",
     "location":"https://downloads.ortussolutions.com/ortussolutions/coldbox-modules/bcrypt/@build.version@/bcrypt-@build.version@.zip",
     "author":"Ortus Solutions <info@ortussolutions.com>",
     "homepage":"https://github.com/coldbox-modules/bcrypt",
@@ -9,7 +9,7 @@
         "type":"git",
         "url":"https://github.com/coldbox-modules/bcrypt"
     },
-	"license":[
+    "license":[
         {
             "type":"MIT",
             "URL":"https://github.com/coldbox-modules/bcrypt/LICENSE"
@@ -30,28 +30,30 @@
         "test-harness",
         "/server*.json"
     ],
-	"devDependencies":{
+    "devDependencies":{
+		"commandbox-boxlang":"*",
         "commandbox-cfformat":"*",
-        "commandbox-docbox":"*",
-        "commandbox-dotenv":"*",
-        "commandbox-cfconfig":"*"
+        "commandbox-docbox":"*"
     },
     "dependencies":{
         "cbjavaloader":"^2.0.0"
     },
-	"testbox":{
+    "testbox":{
         "runner":"http://localhost:60299/tests/runner.cfm"
     },
     "scripts":{
-		"build:module":"task run taskFile=build/Build.cfc :projectName=`package show slug` :version=`package show version`",
-        "build:docs":"task run taskFile=build/Build.cfc target=docs :projectName=`package show slug` :version=`package show version`",
-        "release":"recipe build/release.boxr",
-        "format":"cfformat run helpers,interfaces,models,test-harness/tests/,ModuleConfig.cfc --overwrite",
-        "format:watch":"cfformat watch helpers,interfaces,models,test-harness/tests/,ModuleConfig.cfc ./.cfformat.json",
-        "format:check":"cfformat check helpers,interfaces,models,test-harness/tests/,ModuleConfig.cfc",
-        "cfpm":"echo '\".engine/adobe2021/WEB-INF/cfusion/bin/cfpm.sh\"' | run",
-        "cfpm:install":"echo '\".engine/adobe2021/WEB-INF/cfusion/bin/cfpm.sh\" install ${1}' | run",
-        "install:2021":"run-script cfpm:install zip",
-        "install:dependencies":"install && cd test-harness && install"
+        "build:module":"task run taskFile=build/Build.cfc :projectName=`package show slug` :version=`package show version`",
+		"build:docs":"task run taskFile=build/Build.cfc target=docs :projectName=`package show slug` :version=`package show version`",
+        "install:dependencies":"install && cd test-harness && install",
+		"release":"recipe build/release.boxr",
+        "format":"cfformat run helpers,models,test-harness/tests/,ModuleConfig.cfc --overwrite",
+        "format:watch":"cfformat watch helpers,models,test-harness/tests/,ModuleConfig.cfc ./.cfformat.json",
+        "format:check":"cfformat check helpers,models,test-harness/tests/,ModuleConfig.cfc ./.cfformat.json",
+		"start:lucee" : "server start serverConfigFile=server-lucee@5.json",
+		"start:2021" : "server start serverConfigFile=server-adobe@2021.json",
+		"stop:lucee" : "server stop serverConfigFile=server-lucee@5.json",
+		"stop:2021" : "server stop serverConfigFile=server-adobe@2021.json",
+		"logs:lucee" : "server log serverConfigFile=server-lucee@5.json --follow",
+		"logs:2021" : "server log serverConfigFile=server-adobe@2021.json --follow"
     }
 }
