@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2025-02-19
+
 ### Added
 
 - BoxLang updates
@@ -25,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- @wpdebruin <wil@site4u.nl> - enabled `workfactor` to be used in `hashPassword()`
+- @wpdebruin [wil@site4u.nl](mailto:wil@site4u.nl) - enabled `workfactor` to be used in `hashPassword()`
 
 ## [3.0.0] => 2020-NOV-1
 
@@ -64,3 +66,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added full test suites
 - Added Travis integration
 - Added git ignores and attributes
+
+[unreleased]: https://github.com/coldbox-modules/bcrypt/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/coldbox-modules/bcrypt/compare/79310b6ddfb2f896e17a2bd91098705d7f99e62c...v3.2.0
